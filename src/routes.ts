@@ -2,7 +2,8 @@ import Router from 'koa-router';
 import { Context, Next } from 'koa';
 
 import config from './config';
-import { handlePage, FBPage } from './facebook';
+import { handlePage } from './facebook';
+import { FBPage } from './types';
 
 const router = new Router();
 
@@ -39,13 +40,16 @@ const facebookValidate = async (ctx: Context, next: Next) => {
 };
 
 /**
- * Receive a Facebook event.
+ * Handle a set of events sent to us from Facebook. The most important event
+ * type is messages from the user to us.
  */
 const facebookEvent = async (ctx: Context, next: Next) => {
-  const event: FBPage = ctx.request.body;
-  if (event) {
-    handlePage(event);
+  const page: FBPage = ctx.request.body;
+  if (page) {
+    // process and respond in the background (don't await)
+    handlePage(page);
   }
+  // respond immediately to Facebook
   ctx.status = 200;
   await next();
 };

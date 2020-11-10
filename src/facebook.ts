@@ -2,43 +2,17 @@
  * Handle incoming messages from Facebook and respond to them.
  */
 
-import { chatBot } from './chat';
-import { Context } from './chat/bot';
-
-interface FBPerson {
-  id: string;
-}
-
-interface FBMessage {
-  mid: string;
-  text: string;
-}
-
-interface FBMessageEvent {
-  sender: FBPerson;
-  recipient: FBPerson;
-  timestamp: number;
-  message: FBMessage;
-}
-
-interface FBEvent {
-  id: string;
-  time: number;
-  messaging: Array<FBMessageEvent>;
-}
-
-export interface FBPage {
-  object: string;
-  entry: Array<FBEvent>;
-}
+import { detectIntent } from './dialogflow';
+import { messenger } from './messenger';
+import { FBPage } from './types';
 
 /**
  * The webhook sends us messages in "pages". Handle one full page of messages.
  */
 export const handlePage = async (page: FBPage) => {
   if (page.entry) {
-    page.entry.forEach(e => {
-      e.messaging.forEach(m => {
+    page.entry.forEach((e) => {
+      e.messaging.forEach((m) => {
         handleMessage(m.sender.id, m.timestamp, m.message.text);
       });
     });
@@ -53,15 +27,16 @@ export const handlePage = async (page: FBPage) => {
  * @param message The message text itself
  */
 async function handleMessage(
-  sender: string,
+  user: string,
   _timestamp: number,
   message: string
 ): Promise<void> {
-  const ctx: Context = { user: sender, message };
-  console.log(`--> ${ctx.message}`);
-  await next();
-  if (ctx.response) {
-    console.log(`<-- ${ctx.response}`);
+  console.log(`Received message "${message}" from ${user}`);
+
+  const sessionId = user;
+  const response = await detectIntent(message, sessionId);
+  if (response.message) {
+    console.log(`Sending message: "${response.message} to ${user}`);
+    await messenger.sendSlowly(user, response.message);
   }
-  await chatBot.handle({ message, user: sender });
 }

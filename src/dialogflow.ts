@@ -2,11 +2,9 @@
  * Dialogflow middleware for chat.
  */
 
-import uuid from 'uuid';
 import df from '@google-cloud/dialogflow';
 
-import { Context } from './bot';
-import config from '../config';
+import config from './config';
 
 interface NLUResult {
   message?: string;
@@ -14,24 +12,15 @@ interface NLUResult {
 }
 
 /**
- * Respond to a message using content from dialogflow.
+ * Have dialogflow classify the intent and get a simplified response back.
  */
-export async function dialogflow(ctx: Context) {
-  const result = await detectIntent(ctx.message);
-  ctx.intent = result.intent;
-  if (result.message) {
-    ctx.response = result.message;
-  }
-}
-
-/**
- * Call dialogflow and get a response.
- */
-async function detectIntent(message: string): Promise<NLUResult> {
+export async function detectIntent(
+  message: string,
+  sessionId: string
+): Promise<NLUResult> {
   if (!config.DIALOGFLOW_PROJECT_ID || !config.DIALOGFLOW_PRIVATE_KEY) {
     throw new Error('you must configure dialogflow settings in .env');
   }
-  const sessionId = uuid.v4();
 
   // make a new session
   const sessionClient = new df.SessionsClient();

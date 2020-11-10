@@ -20,9 +20,28 @@ class MessengerClient {
     return this._client;
   }
 
-  async sendMessage(recipient: string, text: string): Promise<void> {
+  /**
+   * Send a text message to the user.
+   *
+   * @param recipient
+   * @param text
+   */
+  async send(recipient: string, text: string): Promise<void> {
+    // NOTE The Facebook API accepts other types of messages too, such as quick-replies.
     await this._getClient().sendTextMessage({ id: recipient, text });
-    console.log(`Sending message: ${JSON.stringify({ recipient, text })}`);
+  }
+
+  /**
+   * Send a text message to a user in a more human style, using typing indicators and delays.
+   */
+  async sendSlowly(
+    recipient: string,
+    text: string,
+    delayMs: number = 1000
+  ): Promise<void> {
+    await this.startTyping(recipient);
+    await sleep(delayMs);
+    await this.send(recipient, text);
   }
 
   /**
@@ -50,6 +69,10 @@ class MessengerClient {
       responseType: 'json',
     });
   }
+}
+
+function sleep(ms: number): Promise<void> {
+  return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 export const messenger = new MessengerClient();
