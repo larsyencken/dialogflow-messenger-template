@@ -24,9 +24,16 @@ build: node_modules
 	@echo '==> Compiling typescript'
 	npm run build
 
-test: node_modules
+test: node_modules up
 	@echo '==> Running unit tests'
 	npm t
+
+up:
+	@echo '==> Starting MySQL'
+	docker-compose up
+
+down:
+	docker-compose down
 
 clean:
 	rm -rf node_modules dist
