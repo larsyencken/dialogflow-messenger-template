@@ -1,0 +1,54 @@
+{
+  "version": "0.1.0",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "engines": {
+    "node": ">=10"
+  },
+  "scripts": {
+    "build": "tsc",
+    "test": "tsc && jest",
+    "lint": "eslint"
+  },
+  "peerDependencies": {},
+  "prettier": {
+    "printWidth": 80,
+    "semi": true,
+    "singleQuote": true,
+    "trailingComma": "es5"
+  },
+  "name": "df-messenger-template",
+  "author": "Lars Yencken",
+  "devDependencies": {
+    "@types/got": "^9.6.11",
+    "@types/jest": "^26.0.13",
+    "@types/koa": "^2.11.4",
+    "@types/koa-bodyparser": "^4.3.0",
+    "@types/koa-json": "^2.0.18",
+    "@types/koa-logger": "^3.1.1",
+    "@types/koa-router": "^7.4.1",
+    "@types/supertest": "^2.0.10",
+    "@types/uuid": "^8.3.0",
+    "husky": "^4.2.5",
+    "jest": "^26.4.2",
+    "supertest": "^4.0.2",
+    "ts-jest": "^26.3.0",
+    "tslib": "^2.0.1",
+    "typescript": "^4.0.2"
+  },
+  "dependencies": {
+    "@google-cloud/dialogflow": "^3.3.0",
+    "dotenv": "^8.2.0",
+    "fb-messenger": "^2.3.1",
+    "got": "^11.6.0",
+    "koa": "^2.13.0",
+    "koa-bodyparser": "^4.3.0",
+    "koa-json": "^2.0.2",
+    "koa-logger": "^3.2.1",
+    "koa-router": "^9.4.0"
+  }
+}

@@ -1,0 +1,54 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "type": "object",
+  "properties": {
+    "object": { "type": "string", "enum": ["page"] },
+    "entry": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/event" }
+    }
+  },
+  "required": ["object", "entry"],
+  "definitions": {
+    "event": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "time": { "type": "integer" },
+        "messaging": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/message" }
+        }
+      },
+      "required": ["id", "time", "messaging"]
+    },
+    "message": {
+      "type": "object",
+      "properties": {
+        "sender": {
+          "$ref": "#/definitions/person",
+          "description": "The PID of the person/bot sending"
+        },
+        "recipient": {
+          "$ref": "#/definitions/person",
+          "description": "The PID of the person/bot receiving"
+        },
+        "timestamp": { "type": "integer" },
+        "message": {
+          "type": "object",
+          "properties": {
+            "mid": { "type": "string" },
+            "text": { "type": "string" }
+          },
+          "required": ["mid", "text"]
+        }
+      },
+      "required": ["sender", "recipient", "timestamp", "message"]
+    },
+    "person": {
+      "type": "object",
+      "properties": { "id": { "type": "string" } },
+      "required": ["id"]
+    }
+  }
+}
