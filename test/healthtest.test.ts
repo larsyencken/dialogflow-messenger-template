@@ -1,16 +1,10 @@
 import request from 'supertest';
 
-import server from '../src';
-
-// close the server after each test
-afterEach((done) => {
-  server.close();
-  done();
-});
+import app from '../src/app';
 
 describe('routes/healthcheck', () => {
   it('should return 200', async () => {
-    const response = await request(server).get('/healthcheck').send();
+    const response = await request(app.callback()).get('/healthcheck').send();
     expect(response.status).toEqual(200);
   });
 });
