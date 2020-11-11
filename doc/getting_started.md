@@ -112,6 +112,10 @@ Ngrok will give you an HTTPS address which you are now serving, e.g. https://21b
 
 **Milestone:** now your entire bot is connected end-to-end with Dialogflow!
 
+WARNING: if you close your ngrok tunnel and start it again later, you will get a new webhook address that you need to register again on the Facebook developer site.
+
 ## 5. Say something to your bot
 
 Go back to Messenger, and find the conversation you started with your bot. Say "hi". Your bot should say hi back!
+
+Good work for getting this far 🙌
