@@ -9,6 +9,7 @@ help:
 	@echo "  make tunnel     Run an ngrok tunnel to the local server"
 	@echo "  make test       Run unit tests"
 	@echo "  make clean      Clean up temporary files"
+	@echo "  make shell      Start NodeJS shell with db support"
 	@echo
 
 node_modules: package.json
@@ -28,9 +29,14 @@ test: node_modules up
 	@echo '==> Running unit tests'
 	npm t
 
+shell: node_modules
+	@echo '==> Starting interactive REPL'
+	npm run build
+	node --experimental-repl-await dist/src/ormShell.js
+
 up:
-	@echo '==> Starting MySQL'
-	docker-compose up
+	@echo '==> Starting MySQL in the background'
+	docker-compose up -d
 
 down:
 	docker-compose down
@@ -40,3 +46,6 @@ clean:
 
 tunnel:
 	ngrok http 3000
+
+mysql:
+	mysql -h 127.0.0.1 -u root --password=mysqltest chat

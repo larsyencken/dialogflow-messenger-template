@@ -1,0 +1,8 @@
+#!/bin/bash
+
+make node_modules
+npm run build
+
+cd dist/src
+
+exec ../../node_modules/sequelize-cli/lib/sequelize "$@"

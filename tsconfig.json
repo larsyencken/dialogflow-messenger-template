@@ -1,13 +1,17 @@
 {
   "compilerOptions": {
+    "experimentalDecorators": true,
     "outDir": "./dist",
     "allowJs": true,
-    "target": "es5",
+    "target": "es6",
     "resolveJsonModule": true,
+    "moduleResolution": "node",
+    "module": "CommonJS",
     "importHelpers": true,
     "esModuleInterop": true,
     "strict": true,
     "strictNullChecks": true,
+    "strictPropertyInitialization": false,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noImplicitReturns": true,
