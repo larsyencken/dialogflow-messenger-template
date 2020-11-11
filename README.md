@@ -90,11 +90,12 @@ We now need API credentials in order to call it..
 2. Click on "+ Create Service Account" at the top, name your account "dialog" and click "Create"
 3. Give your account the role "Dialogflow API Admin", then click "Continue"
 4. In the next step, just click "Done"
-5. Find the three dots on the right of your service account line, click on them, then click "Create key"
-6. Choose "JSON" then "Create"
-7. Back in the browser, click "Done". The credentials file will download.
-8. Edit the JSON credentials file, find the `private_key` entry and copy its value including the quotes
-9. Put this value into your `.env` file as `DIALOGFLOW_PRIVATE_KEY` and save
+5. Your will now see your service account, copy the email address and add it to your `.env` file as the setting `DIALOGFLOW_CLIENT_EMAIL`
+6. Back in the browser, find the three dots on the right of your service account line, click on them, then click "Create key"
+7. Choose "JSON" then "Create"
+8. Back in the browser, click "Done". The credentials file will download.
+9. Edit the JSON credentials file, find the `private_key` entry and copy its value including the quotes
+10. Put this value into your `.env` file as `DIALOGFLOW_PRIVATE_KEY` and save
 
 **Milestone:** your bot is totally configured to act as a server
 
@@ -127,7 +128,7 @@ Ngrok will give you an HTTPS address which you are now serving, e.g. https://21b
 
 ### 5. Say something to your bot
 
-Go back to Messenger, and find the conversation you started with your bot. Say "hi"
+Go back to Messenger, and find the conversation you started with your bot. Say "hi". Your bot should say hi back!
 
 ### Set up a Facebook Messenger bot
 
