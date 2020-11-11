@@ -23,7 +23,12 @@ export async function detectIntent(
   }
 
   // make a new session
-  const sessionClient = new df.SessionsClient();
+  const sessionClient = new df.SessionsClient({
+    credentials: {
+      client_email: config.DIALOGFLOW_CLIENT_EMAIL,
+      private_key: config.DIALOGFLOW_PRIVATE_KEY,
+    },
+  });
   const sessionPath = sessionClient.projectAgentSessionPath(
     config.DIALOGFLOW_PROJECT_ID,
     sessionId
